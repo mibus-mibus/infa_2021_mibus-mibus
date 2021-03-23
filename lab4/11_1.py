@@ -6,7 +6,9 @@ screen = pygame.display.set_mode((800, 1000))
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 LIGHT_GRAY = (220, 220, 220)
-
+LIGHT_BROWN = (190, 140, 75)
+BROWN = (172, 120, 69)
+DARK_BROWN = (101, 67, 33)
 
 def draw_environment():
     """
@@ -57,11 +59,56 @@ def draw_iglu():
             [[50, 570], [67, 505], [88, 455],
              [150, 410], [200, 400], [250, 410],
              [312, 455], [333, 505], [350, 570], [200, 580]])
-    arc(screen, BLACK, (50, 400, 300, 350), 0, 3.14, 4)  # iglu's border
+    # iglu's border:
+    arc(screen, BLACK, (50, 400, 300, 350), 0, 3.14, 4)
 
     draw_bricks_iglu()
 
 def draw_chukcha():
+    draw_chukcha_body()
+    draw_chukcha_head()
+    draw_chukcha_hand()
+    draw_chukcha_leg()
+    draw_spear()
+
+def draw_chukcha_head():
+    """ Draw head's chukcha"""
+    draw_chukcha_hood()
+    draw_chukcha_face()
+
+
+def draw_chukcha_face():
+    """Draw face's chukcha"""
+    #Face:
+    ellipse(screen, LIGHT_GRAY, (550, 550, 80, 60))
+    #Left eye:
+    line(screen, BLACK, (563, 570), (577, 575))
+    #Right eye:
+    line(screen, BLACK, (600, 575), (614, 570))
+    #Mause:
+    lines(screen, BLACK, False, [[570, 595], [578, 590], [602, 590], [610, 595]])
+
+def draw_chukcha_hood():
+    """Draw hood's chukcha"""
+    #Foor:
+    ellipse(screen, LIGHT_GRAY, (530, 530, 120, 100))
+    #Hood:
+    ellipse(screen, LIGHT_BROWN, (540, 540, 100, 80))
+
+def draw_chukcha_body():
+    polygon(screen, BROWN, [[520, 750], [530, 680], [550, 600], [630, 600], [650, 680], [660, 750]])
+    #Horizontal fur line on the chukcha's coat:
+    rect(screen, DARK_BROWN, (520, 740, 140, 10))
+    #Vertical fur line on the chukcha's coat:
+    rect (screen, DARK_BROWN, (580, 600, 20, 150))
+
+def draw_chukcha_hand():
+    pass
+
+def draw_chukcha_leg():
+    pass
+
+def draw_spear():
     pass
 
 
