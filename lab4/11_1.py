@@ -153,20 +153,30 @@ def draw_cat():
     tilted_ellipse(screen, 235,755, 120, 20, LIGHT_GRAY, 20)
 
     draw_fish()
-    draw_cat_head()
+    draw_cat_head(105,775)
 
-def draw_cat_head():
+def draw_cat_head(x, y):
     """ Draw cat head"""
-    ellipse(screen, LIGHT_GRAY, (95,780, 40, 30))
-    draw_cat_eye()
-    draw_cat_ear()
+    ellipse(screen, LIGHT_GRAY, (x, y, 50, 35))
+    # Left cat's eye:
+    draw_cat_eye(x+5, y+5)
+    # Right cat's eye:
+    draw_cat_eye(x+25, y+10)
+    # Left cat's ear:
+    draw_cat_ear(x+18, y)
+    # Right cat's ear:
+    draw_cat_ear(x+36, y+5)
     draw_cat_fang()
 
-def draw_cat_eye():
-    pass
+def draw_cat_eye(x, y):
+    """Draw cat' eye"""
+    ellipse(screen, WHITE, (x, y, 13, 8))
+    # Pupil:
+    circle(screen, BLACK, (x+9, y+4), 3)
 
-def draw_cat_ear():
-    pass
+def draw_cat_ear(x, y):
+    """ Draw cat's ear"""
+    polygon(screen, LIGHT_GRAY, [[x, y], [x+5, y-10], [x+13, y+5]])
 
 def draw_cat_fang():
     pass
