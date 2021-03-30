@@ -31,52 +31,52 @@ def draw_iglu(s, posX, posY, scale=600):
     surface = pygame.Surface((surface_resolution, surface_resolution), pygame.SRCALPHA, 32).convert_alpha()
     # Fill iglu:
     polygon(surface, LIGHT_GRAY,
-            [[50, 570], [67, 505], [88, 455],
-             [150, 410], [200, 400], [250, 410],
-             [312, 455], [333, 505], [350, 570], [200, 580]])
+            [[x-300, y+70], [x-283, y+5], [x-262, y-45],
+             [x-200, y-90], [x-150, y-100], [x-100, y-90],
+             [x-38, y-45], [x-17, y+5], [x, y+70], [x-150, y+80]])
     # iglu's border:
-    arc(surface, BLACK, (50, 400, 300, 350), 0, 3.14, 4)
+    arc(surface, BLACK, (x-300, y-100, 300, 350), 0, 3.14, 4)
 
-    draw_bricks_iglu()
+    draw_bricks_iglu(surface, x, y)
 
     surface_scale = pygame.transform.scale(surface, (scale, scale))
     return s.blit(surface_scale, (posX, posY))
 
 
-def horizontal_arcs_iglu():
+def horizontal_arcs_iglu(s, x, y):
     """Draw horisontal iglu's arcs"""
-    arc(screen, BLACK, (50, 560, 300, 20), 3.14, 0)
-    arc(screen, BLACK, (60, 510, 280, 20), 3.14, 0)
-    arc(screen, BLACK, (80, 460, 240, 20), 3.14, 0)
-    arc(screen, BLACK, (120, 420, 160, 20), 3.14, 0)
+    arc(s, BLACK, (x-350, y+55, 350, 20), 3.14, 0)
+    arc(s, BLACK, (x-290, y+10, 280, 20), 3.14, 0)
+    arc(s, BLACK, (x-270, y-40, 240, 20), 3.14, 0)
+    arc(s, BLACK, (x-230, y-80, 160, 20), 3.14, 0)
 
 
-def vertival_lines_iglu():
+def vertival_lines_iglu(s, x, y):
     """Draw vertical iglu's lines"""
     # top first line
-    line(screen, BLACK, (180, 400), (170, 440))
-    line(screen, BLACK, (220, 400), (230, 440))
+    line(s, BLACK, (x-170, y-100), (x-180, y-60))
+    line(s, BLACK, (x-130, y-100), (x-120, y-60))
     # second line
-    line(screen, BLACK, (150, 438), (140, 480))
-    line(screen, BLACK, (200, 438), (200, 480))
-    line(screen, BLACK, (250, 438), (260, 480))
+    line(s, BLACK, (x-200, y-62), (x-210, y-20))
+    line(s, BLACK, (x-150, y-62), (x-150, y-20))
+    line(s, BLACK, (x-100, y-62), (x-90, y-20))
     # third line
-    line(screen, BLACK, (115, 477), (95, 525))
-    line(screen, BLACK, (170, 480), (165, 528))
-    line(screen, BLACK, (235, 480), (240, 528))
-    line(screen, BLACK, (285, 480), (300, 528))
+    line(s, BLACK, (x-235, y-23), (x-255, y+25))
+    line(s, BLACK, (x-180, y-20), (x-185, y+28))
+    line(s, BLACK, (x-115, y-20), (x-110, y+28))
+    line(s, BLACK, (x-65, y-20), (x-50, y+28))
     # forth line
-    line(screen, BLACK, (70, 525), (60, 570))
-    line(screen, BLACK, (125, 530), (115, 580))
-    line(screen, BLACK, (200, 530), (200, 580))
-    line(screen, BLACK, (270, 530), (275, 580))
-    line(screen, BLACK, (330, 525), (340, 570))
+    line(s, BLACK, (x-280, y+25), (x-290, y+70))
+    line(s, BLACK, (x-225, y+30), (x-235, y+80))
+    line(s, BLACK, (x-150, y+30), (x-150, y+80))
+    line(s, BLACK, (x-80, y+30), (x-80, y+80))
+    line(s, BLACK, (x-20, y+25), (x-10, y+70))
 
 
-def draw_bricks_iglu():
+def draw_bricks_iglu(s, x, y):
     """Draw ilu's bricks"""
-    horizontal_arcs_iglu()
-    vertival_lines_iglu()
+    horizontal_arcs_iglu(s, x, y)
+    vertival_lines_iglu(s, x, y)
 
 
 def draw_chukcha(s, posX, posY, scale=600):
@@ -240,7 +240,7 @@ def draw_picture():
     Chukcha, cat with fish, iglu
     """
     draw_environment()
-    draw_iglu(screen, 100, 100)
+    draw_iglu(screen, 50, 200)
     draw_chukcha(screen, 200, 450)
     draw_cat()
 
