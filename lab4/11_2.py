@@ -22,19 +22,25 @@ def draw_environment():
     rect(screen, WHITE, (0, 450, 800, 1000))  # white ground
 
 
-def draw_iglu():
+def draw_iglu(s, posX, posY, scale=600):
     """
     Draw iglu
     """
+    surface_resolution = 600
+    x, y = surface_resolution//2, surface_resolution//2
+    surface = pygame.Surface((surface_resolution, surface_resolution), pygame.SRCALPHA, 32).convert_alpha()
     # Fill iglu:
-    polygon(screen, LIGHT_GRAY,
+    polygon(surface, LIGHT_GRAY,
             [[50, 570], [67, 505], [88, 455],
              [150, 410], [200, 400], [250, 410],
              [312, 455], [333, 505], [350, 570], [200, 580]])
     # iglu's border:
-    arc(screen, BLACK, (50, 400, 300, 350), 0, 3.14, 4)
+    arc(surface, BLACK, (50, 400, 300, 350), 0, 3.14, 4)
 
     draw_bricks_iglu()
+
+    surface_scale = pygame.transform.scale(surface, (scale, scale))
+    return s.blit(surface_scale, (posX, posY))
 
 
 def horizontal_arcs_iglu():
@@ -73,50 +79,53 @@ def draw_bricks_iglu():
     vertival_lines_iglu()
 
 
-def draw_chukcha(s, posX, posY, scale = 1):
-    surface = pygame.Surface((300, 300), pygame.SRCALPHA, 32).convert_alpha()
-    draw_chukcha_hand(surface, (450, 640, 100, 30))
-    draw_chukcha_hand(surface, (630, 640, 100, 30))
-    draw_chukcha_leg(surface, "left")
-    draw_chukcha_leg(surface, "right")
-    draw_chukcha_body(surface)
-    draw_chukcha_head(surface)
-    draw_spear(surface)
+def draw_chukcha(s, posX, posY, scale=600):
+    """Draw chukcha"""
+    surface_resolution = 600
+    x, y = surface_resolution//2, surface_resolution//2
+    surface = pygame.Surface((surface_resolution, surface_resolution), pygame.SRCALPHA, 32).convert_alpha()
+    draw_chukcha_hand(surface, (x-70, y-110, 100, 30))
+    draw_chukcha_hand(surface, (x+110, y-110, 100, 30))
+    draw_chukcha_leg(surface, x, y, "left")
+    draw_chukcha_leg(surface, x, y, "right")
+    draw_chukcha_body(surface, x, y)
+    draw_chukcha_head(surface, x, y)
+    draw_spear(surface, x, y)
     surface_scale = pygame.transform.scale(surface, (scale, scale))
     return s.blit(surface_scale, (posX, posY))
 
-def draw_chukcha_head(s):
+def draw_chukcha_head(s, x, y):
     """ Draw head's chukcha"""
-    draw_chukcha_hood(s)
-    draw_chukcha_face(s)
+    draw_chukcha_hood(s, x, y)
+    draw_chukcha_face(s, x, y)
 
 
-def draw_chukcha_face(s):
+def draw_chukcha_face(s, x, y):
     """Draw face's chukcha"""
     # Face:
-    ellipse(s, LIGHT_GRAY, (550, 550, 80, 60))
+    ellipse(s, LIGHT_GRAY, (x+30, y-200, 80, 60))
     # Left eye:
-    line(s, BLACK, (563, 570), (577, 575))
+    line(s, BLACK, (x+43, y-180), (x+57, y-175))
     # Right eye:
-    line(s, BLACK, (600, 575), (614, 570))
-    # Mause:
-    lines(s, BLACK, False, [[570, 595], [578, 590], [602, 590], [610, 595]])
+    line(s, BLACK, (x+80, y-175), (x+94, y-180))
+    # Mouse:
+    lines(s, BLACK, False, [[x+50, y-155], [x+58, y-160], [x+82, y-160], [x+90, y-155]])
 
 
-def draw_chukcha_hood(s):
+def draw_chukcha_hood(s, x, y):
     """Draw hood's chukcha"""
     # Foor:
-    ellipse(s, LIGHT_GRAY, (530, 530, 120, 100))
+    ellipse(s, LIGHT_GRAY, (x+10, y-220, 120, 100))
     # Hood:
-    ellipse(s, LIGHT_BROWN, (540, 540, 100, 80))
+    ellipse(s, LIGHT_BROWN, (x+20, y-210, 100, 80))
 
 
-def draw_chukcha_body(s):
-    polygon(s, BROWN, [[520, 750], [530, 680], [550, 600], [630, 600], [650, 680], [660, 750]])
+def draw_chukcha_body(s, x, y):
+    polygon(s, BROWN, [[x, y], [x+10, y-70], [x+30, y-150], [x+110, y-150], [x+130, y-70], [x+140, y]])
     # Horizontal fur line on the chukcha's coat:
-    rect(s, DARK_BROWN, (520, 740, 140, 10))
+    rect(s, DARK_BROWN, (x, y-10, 140, 10))
     # Vertical fur line on the chukcha's coat:
-    rect(s, DARK_BROWN, (580, 600, 20, 150))
+    rect(s, DARK_BROWN, (x+60, y-150, 20, 150))
 
 
 def draw_chukcha_hand(s, position):
@@ -124,25 +133,25 @@ def draw_chukcha_hand(s, position):
     ellipse(s, BROWN, position)
 
 
-def draw_chukcha_leg(s, left_right):
+def draw_chukcha_leg(s, x, y, left_right):
     """Draw leg"""
     # Draw left leg:
     if left_right == "left":
         # Draw leg
-        ellipse(s, BROWN, (545, 720, 40, 100))
+        ellipse(s, BROWN, (x+25, y-30, 40, 100))
         # Draw foot
-        ellipse(s, BROWN, (520, 792, 60, 30))
+        ellipse(s, BROWN, (x, y+42, 60, 30))
     # Draw right leg:
     elif left_right == "right":
         # Draw leg:
-        ellipse(s, BROWN, (600, 720, 40, 100))
+        ellipse(s, BROWN, (x+80, y-30, 40, 100))
         # Draw foot:
-        ellipse(s, BROWN, (605, 792, 60, 30))
+        ellipse(s, BROWN, (x+85, y+42, 60, 30))
 
 
-def draw_spear(s):
+def draw_spear(s, x, y):
     """Draw spear"""
-    line(s, BLACK, (460, 500), (460, 820), 3)
+    line(s, BLACK, (x-60, y-250), (x-60, y+70), 3)
 
 
 def draw_cat():
@@ -231,12 +240,13 @@ def draw_picture():
     Chukcha, cat with fish, iglu
     """
     draw_environment()
-    draw_iglu()
-    draw_chukcha(screen, 500, 500)
+    draw_iglu(screen, 100, 100)
+    draw_chukcha(screen, 200, 450)
     draw_cat()
 
 
 draw_picture()
+
 
 pygame.display.update()
 clock = pygame.time.Clock()
