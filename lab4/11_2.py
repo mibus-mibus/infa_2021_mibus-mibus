@@ -154,54 +154,59 @@ def draw_spear(s, x, y):
     line(s, BLACK, (x-60, y-250), (x-60, y+70), 3)
 
 
-def draw_cat():
+def draw_cat(s, posX, posY, scale=600):
     """Draw cat"""
+    surface_resolution = 600
+    x, y = surface_resolution//2, surface_resolution//2
+    surface = pygame.Surface((surface_resolution, surface_resolution), pygame.SRCALPHA, 32).convert_alpha()
     # Cat's body
-    ellipse(screen, LIGHT_GRAY, (100, 800, 150, 40))
+    ellipse(surface, LIGHT_GRAY, (x, y, 150, 40))
     # Cat's legs
-    tilted_ellipse(screen, 55, 810, 100, 15, LIGHT_GRAY, 15)
-    tilted_ellipse(screen, 40, 810, 100, 15, LIGHT_GRAY, 5)
-    tilted_ellipse(screen, 175, 660, 100, 15, LIGHT_GRAY, 150)
-    tilted_ellipse(screen, 155, 670, 100, 15, LIGHT_GRAY, 150)
+    tilted_ellipse(surface, x-45, y+10, 100, 15, LIGHT_GRAY, 15)
+    tilted_ellipse(surface, x-60, y+10, 100, 15, LIGHT_GRAY, 5)
+    tilted_ellipse(surface, x+75, y-140, 100, 15, LIGHT_GRAY, 150)
+    tilted_ellipse(surface, x+55, y-130, 100, 15, LIGHT_GRAY, 150)
     # Cat's tail:
-    tilted_ellipse(screen, 235, 755, 120, 20, LIGHT_GRAY, 20)
+    tilted_ellipse(surface, x+135, y-45, 120, 20, LIGHT_GRAY, 20)
 
-    draw_fish(25, 785)
-    draw_cat_head(105, 775)
+    draw_fish(surface, x-75, y-15)
+    draw_cat_head(surface, x+5, y-25)
 
+    surface_scale = pygame.transform.scale(surface, (scale, scale))
+    return s.blit(surface_scale, (posX, posY))
 
-def draw_cat_head(x, y):
+def draw_cat_head(s, x, y):
     """ Draw cat head"""
-    draw_cat_fang(x, y)
-    draw_cat_fang(x + 14, y + 4)
-    ellipse(screen, LIGHT_GRAY, (x, y, 50, 35))
+    draw_cat_fang(s, x, y)
+    draw_cat_fang(s, x + 14, y + 4)
+    ellipse(s, LIGHT_GRAY, (x, y, 50, 35))
     # Cat's nose:
-    polygon(screen, BLACK, [[x + 10, y + 18], [x + 16, y + 18], [x + 13, y + 22]])
+    polygon(s, BLACK, [[x + 10, y + 18], [x + 16, y + 18], [x + 13, y + 22]])
     # Left cat's eye:
-    draw_cat_eye(x + 5, y + 5)
+    draw_cat_eye(s, x + 5, y + 5)
     # Right cat's eye:
-    draw_cat_eye(x + 25, y + 10)
+    draw_cat_eye(s, x + 25, y + 10)
     # Left cat's ear:
-    draw_cat_ear(x + 18, y)
+    draw_cat_ear(s, x + 18, y)
     # Right cat's ear:
-    draw_cat_ear(x + 36, y + 5)
+    draw_cat_ear(s, x + 36, y + 5)
 
 
-def draw_cat_eye(x, y):
+def draw_cat_eye(s, x, y):
     """Draw cat' eye"""
-    ellipse(screen, WHITE, (x, y, 13, 8))
+    ellipse(s, WHITE, (x, y, 13, 8))
     # Pupil:
-    circle(screen, BLACK, (x + 9, y + 4), 3)
+    circle(s, BLACK, (x + 9, y + 4), 3)
 
 
-def draw_cat_ear(x, y):
+def draw_cat_ear(s, x, y):
     """ Draw cat's ear"""
-    polygon(screen, LIGHT_GRAY, [[x, y], [x + 5, y - 10], [x + 13, y + 5]])
+    polygon(s, LIGHT_GRAY, [[x, y], [x + 5, y - 10], [x + 13, y + 5]])
 
 
-def draw_cat_fang(x, y):
+def draw_cat_fang(s, x, y):
     """ Draw cat's fang"""
-    polygon(screen, WHITE, [[x + 4, y + 28], [x + 8, y + 28], [x + 6, y + 34]])
+    polygon(s, WHITE, [[x + 4, y + 28], [x + 8, y + 28], [x + 6, y + 34]])
 
 
 def tilted_ellipse(s, pos1, pos2, size_x, size_y, color, angle):
@@ -213,24 +218,24 @@ def tilted_ellipse(s, pos1, pos2, size_x, size_y, color, angle):
     color - which color of ellipse is
     angle - ellipse tilting angle
     """
-    surface = pygame.Surface((150, 150), pygame.SRCALPHA, 32).convert_alpha()
-    ellipse(surface, color, (0, 0, size_x, size_y))
-    surface2 = pygame.transform.rotate(surface, angle)
-    return s.blit(surface2, (pos1, pos2))
+    surface_ellipse = pygame.Surface((150, 150), pygame.SRCALPHA, 32).convert_alpha()
+    ellipse(surface_ellipse, color, (0, 0, size_x, size_y))
+    surface_ellipse2 = pygame.transform.rotate(surface_ellipse, angle)
+    return s.blit(surface_ellipse2, (pos1, pos2))
 
 
-def draw_fish(x, y):
+def draw_fish(s, x, y):
     """Draw fish"""
-    polygon(screen, RED, [[x + 75, y + 10], [x + 68, y], [x + 81, y + 3], [x + 81, y + 10]])
+    polygon(s, RED, [[x + 75, y + 10], [x + 68, y], [x + 81, y + 3], [x + 81, y + 10]])
     # Fish's bottom fin
-    polygon(screen, RED, [[x + 70, y + 20], [x + 68, y + 22], [x + 70, y + 27], [x + 100, y + 45], [x + 90, y + 30],
+    polygon(s, RED, [[x + 70, y + 20], [x + 68, y + 22], [x + 70, y + 27], [x + 100, y + 45], [x + 90, y + 30],
                           [x + 90, y + 20]])
     # Fish's body:
-    tilted_ellipse(screen, x, y, 70, 16, DARK_GRAY, -20)
+    tilted_ellipse(s, x, y, 70, 16, DARK_GRAY, -20)
     # Fish's tail:
-    polygon(screen, DARK_GRAY, [[x + 108, y + 30], [x + 140, y + 23], [x + 135, y + 46]])
+    polygon(s, DARK_GRAY, [[x + 108, y + 30], [x + 140, y + 23], [x + 135, y + 46]])
     # Fish's eye:
-    circle(screen, BLUE, (x + 58, y + 10), 3)
+    circle(s, BLUE, (x + 58, y + 10), 3)
     # Fish's top fin
 
 
@@ -241,8 +246,8 @@ def draw_picture():
     """
     draw_environment()
     draw_iglu(screen, 50, 200)
-    draw_chukcha(screen, 200, 450)
-    draw_cat()
+    draw_chukcha(screen, 250, 450)
+    draw_cat(screen, -160, 480)
 
 
 draw_picture()
