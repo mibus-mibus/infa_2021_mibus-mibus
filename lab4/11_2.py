@@ -245,10 +245,27 @@ def draw_picture():
     Chukcha, cat with fish, iglu
     """
     draw_environment()
-    draw_iglu(screen, 50, 200)
-    draw_chukcha(screen, 250, 450)
-    draw_cat(screen, -160, 480)
 
+    draw_iglu(screen, 30, 320, 250)
+    draw_iglu(screen, 300, 350, 250)
+    draw_iglu(screen, 50, 200)
+    draw_iglu(screen, 45, 450, 250)
+    draw_iglu(screen, 200, 450, 300)
+
+    draw_chukcha(screen, 580, 450, 100)
+    draw_chukcha(screen, 480, 460, 200)
+    draw_chukcha(screen, 335, 500, 200)
+    draw_chukcha(screen, 480, 450, 100)
+    draw_chukcha(screen, 570, 450, 200)
+    draw_chukcha(screen, 650, 550, 200)
+    draw_chukcha(screen, 420, 530, 200)
+    draw_chukcha(screen, 250, 550)
+
+    draw_cat(screen, -130, 410)
+    draw_cat(screen, -250, 550)
+    draw_cat(screen, -400, 370)
+    draw_cat(screen, -160, 680)
+    draw_cat(screen, 160, 680)
 
 draw_picture()
 
